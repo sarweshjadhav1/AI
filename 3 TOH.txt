@@ -1,0 +1,55 @@
+start = ((3, 2, 1), (), ())  
+goal = ((), (), (3, 2, 1))   
+
+
+queue = [(start, [])]
+visited = [start]  # Stores already visited states
+
+
+while queue:
+
+    state, path = queue.pop(0)  # Get the first state from queue
+
+   
+    if state == goal:
+        print("Goal State Reached!")
+
+        for move in path:
+            print(move)
+
+        print("Total Moves:", len(path))
+        break
+
+
+    for i in range(3):
+        for j in range(3):
+
+
+            if i != j and state[i]:
+
+                disk = state[i][-1]  # Get the top disk
+
+
+                if not state[j] or state[j][-1] > disk:
+
+                    rods = [list(rod) for rod in state]
+
+
+                    rods[i].pop()
+                    rods[j].append(disk)
+
+
+                    new_state = tuple(tuple(rod) for rod in rods)
+
+
+                    if new_state not in visited:
+                        visited.append(new_state)
+
+
+                        move = "Move disk " + str(disk) + " from " + "ABC"[i] + " to " + "ABC"[j]
+
+
+                        queue.append((new_state, path + [move]))
+
+else:
+    print("No Solution!")
