@@ -1,0 +1,35 @@
+#to implement a model-based agent that is capable of navigating grids with obstacles using internal state representation
+
+grid = [
+    [0,0,0],
+    [1,1,0],
+    [0,0,0]
+]
+
+agent = [0,0]
+goal = [2,2]
+
+internal_state =[]
+
+print("agent starts at",agent)
+
+while agent != goal:
+    internal_state.append(agent.copy())
+
+    row = agent[0]
+    col = agent[1]
+
+    if col + 1 < 3 and grid[row] [col+1] == 0:
+        agent[1]= agent[1]+1
+
+    elif row +1 < 3 and grid[row+1][col] == 0:
+        agent[0]=agent[0]+1
+
+    else:
+        print("the agent is blocked")
+        break
+    print("agent moved to",agent)
+
+if agent == goal :
+    print ("goal reached")
+print("internal state",internal_state)

@@ -1,0 +1,24 @@
+# to design a intelligent agent that guesses a hidden number using higher/lower feedback
+
+number = 68
+
+low =1 
+high = 100
+
+while low <= high:
+
+    guess = (low + high)//2
+
+    print ("agent guesses ",guess)
+
+    if guess == number:
+        print("agent gussed correct",guess)
+        break 
+
+    elif guess < number:
+        print("higher")
+        low = guess +1
+
+    else:
+        print("lower")
+        high = guess -1

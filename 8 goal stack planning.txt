@@ -1,0 +1,35 @@
+# To implement Goal Stack Planning to solve the Blocks World problem and achieve a specified goal configuration
+
+blocks = {
+    'A':'table',
+    'B':'A',
+    'C':'table'
+}
+
+goal_stack = [
+    ('C','B'),
+    ('B','table'),
+    ('A','table')
+]
+
+def clear(block):
+    return all (position != block for position in blocks.values())
+
+def solve():
+    while goal_stack:
+        block, destination = goal_stack.pop()
+
+        if blocks[block]==destination:
+            continue
+
+        if clear(block)and (destination == 'table' or clear(destination)):
+            old= blocks[block]
+            blocks[block]= destination
+            print("moved",block,"from",old,"to",destination)
+    if blocks == { 'A':'table','B':'table','C':'B'}:
+        print("goal state reached")
+    else:
+        print("goal state not reached")
+    print("final state",blocks)
+
+solve()

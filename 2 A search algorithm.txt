@@ -1,0 +1,49 @@
+#to implement A* search algorithm to solve the 8 puzzle problem using huristic search
+
+import heapq
+
+start = (1,2,3,4,0,6,7,5,8)
+goal  = (1,2,3,4,5,6,7,8,0)
+
+def h(state):
+    return sum (state[i] != goal[i] and state[i] != 0 for i in range(9))
+
+def astar():
+    queue = [(h(start),0,start,[start])]
+    visited = set()
+
+    while queue:
+        f,moves,state,path = heapq.heappop(queue)
+
+        if state == goal:
+            print ("solution found")
+            for state in path:
+                print(state [:3])
+                print(state [3:6])
+                print(state [6:])
+                print()
+            print("total moves",moves)
+            return
+        if state in visited:
+            continue
+        visited.add(state)
+        zero = state.index(0)
+
+        for move in [-3,3,-1,1]:
+            new = zero + move
+
+            if 0 <= new < 9:
+                if move == -1 and zero % 3 == 0 : continue
+                if move == 1 and zero % 3 == 2 : continue
+
+                temp = list(state)
+                temp[zero],temp[new] = temp[new],temp[zero]
+                new_state = tuple(temp)
+
+                if new_state not in visited:
+                    g = moves + 1 
+                    f = g + h(new_state)
+                    heapq.heappush(queue,(f,g,new_state,path+[new_state]))
+    print("no solution found")
+
+astar()
